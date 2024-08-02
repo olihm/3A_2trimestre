@@ -58,4 +58,15 @@ function mostraAlternativas() {
     }
 }
 
-mostraPergunta();
+elementoOpcoes.addEventListener("click", () => respostaSelecionada(opcao));
+
+function respostaSelecionada(opcaoSelecionada){
+    const afirmacoes = opcaoSelecionada.afirmacoes;
+    historiaFinal = afirmacoes;
+    atual++;
+    mostraPergunta();
+}
+
+let atual = 0;
+let perguntaAtual;
+let historiaFinal = "";
