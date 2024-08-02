@@ -60,13 +60,13 @@ function mostraAlternativas() {
 
 elementoOpcoes.addEventListener("click", () => respostaSelecionada(opcao));
 
+let atual = 0;
+let perguntaAtual;
+let historiaFinal = "";
+
 function respostaSelecionada(opcaoSelecionada){
     const afirmacoes = opcaoSelecionada.afirmacoes;
     historiaFinal = afirmacoes;
     atual++;
     mostraPergunta();
 }
-
-let atual = 0;
-let perguntaAtual;
-let historiaFinal = "";
