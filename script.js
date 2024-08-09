@@ -20,10 +20,10 @@ const perguntas = [
         ]
     },
     {
-        enunciado: "Após a elaboração do trabalho escrito, a professora realizou um debate entre a turma para entender como foi realizada a pesquisa e escrita. Nessa conversa também foi levantado um ponto muito importante: como a IA impacta o trabalho do futuro. Nesse debate, como você se posiciona?"
+        enunciado: "Após a elaboração do trabalho escrito, a professora realizou um debate entre a turma para entender como foi realizada a pesquisa e escrita. Nessa conversa também foi levantado um ponto muito importante: como a IA impacta o trabalho do futuro. Nesse debate, como você se posiciona?",
         alternativas: [
             "Defende a ideia de que a IA pode criar novas oportunidades de emprego e melhorar habilidades humanas.",
-            "Me preocupo com as pessoas que perderão seus empregos para máquinas e defendem a importância de proteger os trabalhadores."
+            "Me preocupo com as pessoas que perderão seus empregos para máquinas e defendo a importância de proteger os trabalhadores."
         ]
     },
     {
@@ -34,39 +34,47 @@ const perguntas = [
         ]
     },
     {
-        enunciado: "Você tem um trabalho em grupo de biologia para entregar na semana seguinte, o andamento do trabalho está um pouco atrasado e uma pessoa do seu grupo decidiu fazer com ajuda da IA. O problema é que o trabalho está totalmente igual ao do chat. O que você faz? ",
+        enunciado: "Você tem um trabalho em grupo de biologia para entregar na semana seguinte, o andamento do trabalho está um pouco atrasado e uma pessoa do seu grupo decidiu fazer com ajuda da IA. O problema é que o trabalho está totalmente igual ao do chat. O que você faz?",
         alternativas: [
             "Escrever comandos para o chat é uma forma de contribuir com o trabalho, por isso não é um problema utilizar o texto inteiro.",
             "O chat pode ser uma tecnologia muito avançada, mas é preciso manter a atenção pois toda máquina erra, por isso revisar o trabalho e contribuir com as perspectivas pessoais é essencial."
         ]
     }
-]
+];
 
 let atual = 0;
 let perguntaAtual;
+let historiaFinal = "";
 
 function mostraPergunta() {
     perguntaAtual = perguntas[atual];
     caixaPerguntas.textContent = perguntaAtual.enunciado;
     mostraAlternativas();
 }
+
 function mostraAlternativas() {
-    for(const alternativa of perguntaAtual.alternativas) {
+    caixaAlternativas.innerHTML = ''; // Limpa alternativas anteriores
+    for (const alternativa of perguntaAtual.alternativas) {
         const botaoAlternativas = document.createElement("button");
-        botaoAlternativa.textContent = alternativa;
+        botaoAlternativas.textContent = alternativa;
+        botaoAlternativas.addEventListener("click", () => respostaSelecionada(alternativa));
         caixaAlternativas.appendChild(botaoAlternativas);
     }
 }
 
-elementoOpcoes.addEventListener("click", () => respostaSelecionada(opcao));
-
-let atual = 0;
-let perguntaAtual;
-let historiaFinal = "";
-
-function respostaSelecionada(opcaoSelecionada){
-    const afirmacoes = opcaoSelecionada.afirmacoes;
-    historiaFinal = afirmacoes;
+function respostaSelecionada(opcaoSelecionada) {
+    // Aqui você pode adicionar lógica para a resposta selecionada, se necessário
+    historiaFinal = `Resposta selecionada: ${opcaoSelecionada}`;
     atual++;
-    mostraPergunta();
+    if (atual < perguntas.length) {
+        mostraPergunta();
+    } else {
+        // Lógica para mostrar o resultado final ou algo semelhante
+        caixaPrincipal.style.display = 'none'; // Exemplo: esconde a caixa principal
+        caixaResultado.style.display = 'block'; // Exemplo: mostra a caixa de resultado
+        textoResultado.textContent = historiaFinal; // Exemplo: mostra a história final
+    }
 }
+
+// Inicializa a primeira pergunta
+mostraPergunta();
